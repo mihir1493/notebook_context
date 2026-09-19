@@ -2,9 +2,18 @@
   "name": "notebook-context",
   "displayName": "Notebook Context",
   "description": "Capture the reasoning behind your Jupyter notebook code — experiments, decisions, assumptions, data context — right next to the cell, and see what changed since.",
-  "version": "0.1.0",
-  "publisher": "mshinde",
+  "version": "0.1.1",
+  "publisher": "donty14",
   "license": "MIT",
+  "icon": "media/icon2.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mihir1493/notebook_context.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mihir1493/notebook_context/issues"
+  },
+  "homepage": "https://github.com/mihir1493/notebook_context#readme",
   "engines": {
     "vscode": "^1.90.0"
   },
@@ -176,7 +185,7 @@
     "viewsWelcome": [
       {
         "view": "notebookContext.timeline",
-        "contents": "Open a Jupyter notebook to see the context captured in it.\n\nFocus a cell and press **Ctrl+Alt+C** (or click 🧠 in the cell toolbar) to capture why the code is the way it is.\n\n[Learn more](https://github.com/mshinde/notebook-context#readme)"
+        "contents": "Open a Jupyter notebook to see the context captured in it.\n\nFocus a cell and press **Ctrl+Alt+C** (or click 🧠 in the cell toolbar) to capture why the code is the way it is.\n\n[Learn more](https://github.com/mihir1493/notebook_context#readme)"
       }
     ],
     "configuration": {

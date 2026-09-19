@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1
+
+- New Marketplace logo
+- Cell toolbar: brain icon instead of a text label that overlapped the built-in buttons
+- Repository, homepage and issue links in the manifest
+
 ## 0.1.0
 
 - 🧠 Capture Context from the cell toolbar or `Ctrl+Alt+C`, with six templates: Experiment, Decision, Assumption, Data Context, Result, General Note

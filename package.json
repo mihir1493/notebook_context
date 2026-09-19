@@ -1,0 +1,252 @@
+{
+  "name": "notebook-context",
+  "displayName": "Notebook Context",
+  "description": "Capture the reasoning behind your Jupyter notebook code — experiments, decisions, assumptions, data context — right next to the cell, and see what changed since.",
+  "version": "0.1.0",
+  "publisher": "mshinde",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Notebooks",
+    "Data Science",
+    "Other"
+  ],
+  "keywords": [
+    "jupyter",
+    "notebook",
+    "data science",
+    "decision log",
+    "experiment tracking",
+    "documentation"
+  ],
+  "activationEvents": [
+    "onNotebook:jupyter-notebook"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "notebookContext.capture",
+        "title": "🧠 Capture Context",
+        "category": "Notebook Context",
+        "icon": {
+          "light": "media/brain-light.svg",
+          "dark": "media/brain-dark.svg"
+        }
+      },
+      {
+        "command": "notebookContext.showDiff",
+        "title": "Show Code Diff Since Capture",
+        "category": "Notebook Context",
+        "icon": "$(diff)"
+      },
+      {
+        "command": "notebookContext.markCurrent",
+        "title": "Mark Linked Code as Current",
+        "category": "Notebook Context",
+        "icon": "$(check)"
+      },
+      {
+        "command": "notebookContext.reveal",
+        "title": "Reveal Context Cell",
+        "category": "Notebook Context"
+      },
+      {
+        "command": "notebookContext.revealTarget",
+        "title": "Reveal Linked Code Cell",
+        "category": "Notebook Context",
+        "icon": "$(go-to-file)"
+      },
+      {
+        "command": "notebookContext.export",
+        "title": "Export Context Log…",
+        "category": "Notebook Context",
+        "icon": "$(export)"
+      },
+      {
+        "command": "notebookContext.refreshTimeline",
+        "title": "Refresh Timeline",
+        "category": "Notebook Context",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "notebookContext.groupBy",
+        "title": "Group Timeline By…",
+        "category": "Notebook Context",
+        "icon": "$(list-tree)"
+      },
+      {
+        "command": "notebookContext.cellMenu",
+        "title": "Context Actions for Cell",
+        "category": "Notebook Context"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "notebookContext.capture",
+        "key": "ctrl+alt+c",
+        "mac": "ctrl+alt+c",
+        "when": "notebookEditorFocused && notebookType == 'jupyter-notebook'"
+      }
+    ],
+    "menus": {
+      "notebook/cell/title": [
+        {
+          "command": "notebookContext.capture",
+          "group": "inline@1",
+          "when": "notebookType == 'jupyter-notebook'"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "notebookContext.groupBy",
+          "group": "navigation@1",
+          "when": "view == notebookContext.timeline"
+        },
+        {
+          "command": "notebookContext.export",
+          "group": "navigation@2",
+          "when": "view == notebookContext.timeline"
+        },
+        {
+          "command": "notebookContext.refreshTimeline",
+          "group": "navigation@3",
+          "when": "view == notebookContext.timeline"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "notebookContext.showDiff",
+          "group": "inline@1",
+          "when": "view == notebookContext.timeline && viewItem == context.drifted"
+        },
+        {
+          "command": "notebookContext.revealTarget",
+          "group": "inline@2",
+          "when": "view == notebookContext.timeline && viewItem =~ /^context/"
+        },
+        {
+          "command": "notebookContext.showDiff",
+          "group": "1_actions@1",
+          "when": "view == notebookContext.timeline && viewItem =~ /^context/"
+        },
+        {
+          "command": "notebookContext.markCurrent",
+          "group": "1_actions@2",
+          "when": "view == notebookContext.timeline && viewItem == context.drifted"
+        },
+        {
+          "command": "notebookContext.revealTarget",
+          "group": "1_actions@3",
+          "when": "view == notebookContext.timeline && viewItem =~ /^context/"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "notebookContext.cellMenu",
+          "when": "false"
+        },
+        {
+          "command": "notebookContext.reveal",
+          "when": "false"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "notebookContext",
+          "title": "Notebook Context",
+          "icon": "media/brain.svg"
+        }
+      ]
+    },
+    "views": {
+      "notebookContext": [
+        {
+          "id": "notebookContext.timeline",
+          "name": "Timeline",
+          "contextualTitle": "Notebook Context",
+          "icon": "media/brain.svg"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "notebookContext.timeline",
+        "contents": "Open a Jupyter notebook to see the context captured in it.\n\nFocus a cell and press **Ctrl+Alt+C** (or click 🧠 in the cell toolbar) to capture why the code is the way it is.\n\n[Learn more](https://github.com/mshinde/notebook-context#readme)"
+      }
+    ],
+    "configuration": {
+      "title": "Notebook Context",
+      "properties": {
+        "notebookContext.captureMode": {
+          "type": "string",
+          "enum": [
+            "template",
+            "guided"
+          ],
+          "enumDescriptions": [
+            "Insert a pre-filled template cell above the code and open it for editing.",
+            "Ask for each field one at a time in an input box, then insert the finished cell."
+          ],
+          "default": "template",
+          "description": "How the capture flow collects your notes."
+        },
+        "notebookContext.idStyle": {
+          "type": "string",
+          "enum": [
+            "sequential",
+            "random"
+          ],
+          "enumDescriptions": [
+            "CTX-001, CTX-002, … (per notebook; easy to reference in conversation).",
+            "CTX-7F3K2A (collision-free across notebooks and merges)."
+          ],
+          "default": "sequential",
+          "description": "Format of generated context IDs."
+        },
+        "notebookContext.storeCodeSnapshot": {
+          "type": "boolean",
+          "default": true,
+          "description": "Keep a copy of the linked cell's code in the context cell's metadata so you can diff it later."
+        },
+        "notebookContext.autoUpdateTimestamp": {
+          "type": "boolean",
+          "default": true,
+          "description": "Refresh @updated_timestamp automatically when a context cell's body changed at notebook save."
+        },
+        "notebookContext.showFooter": {
+          "type": "boolean",
+          "default": true,
+          "description": "Render a small footer line with the context ID and creation time in each context cell."
+        },
+        "notebookContext.timeline.groupBy": {
+          "type": "string",
+          "enum": [
+            "time",
+            "type",
+            "cell"
+          ],
+          "default": "time",
+          "description": "How the Timeline view groups captured context."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "test": "npm run compile && node --test out/test/*.test.js",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/vscode": "^1.90.0",
+    "@vscode/vsce": "^3.0.0",
+    "typescript": "^5.5.0"
+  }
+}

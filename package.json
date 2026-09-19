@@ -2,7 +2,7 @@
   "name": "notebook-context",
   "displayName": "Notebook Context",
   "description": "Capture the reasoning behind your Jupyter notebook code — experiments, decisions, assumptions, data context — right next to the cell, and see what changed since.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "publisher": "donty14",
   "license": "MIT",
   "icon": "media/icon2.png",

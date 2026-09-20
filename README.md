@@ -6,7 +6,7 @@ Notebooks record **what** ran. They rarely record **why**: why this feature was 
 
 Notebook Context puts that reasoning right above the code it explains, as ordinary markdown cells with a little structure, then tracks whether the code has drifted away from it.
 
-[![Watch the video](./media/notebook_context_thumbnail.jpg)](drive.google.com/file/d/1-LWt-aU7aAMBQY6BGxXGLJ9dPu9i5dHI/view?usp=sharing)
+[![Watch the video](./media/notebook_context_thumbnail.jpg)](https://drive.google.com/file/d/1-LWt-aU7aAMBQY6BGxXGLJ9dPu9i5dHI/view?usp=drive_link)
 
 
 ## How it works

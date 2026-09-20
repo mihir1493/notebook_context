@@ -6,20 +6,21 @@ Notebooks record **what** ran. They rarely record **why**: why this feature was 
 
 Notebook Context puts that reasoning right above the code it explains, as ordinary markdown cells with a little structure, then tracks whether the code has drifted away from it.
 
+[![Watch the video](./media/notebook_context_thumbnail.jpg)](drive.google.com/file/d/1-LWt-aU7aAMBQY6BGxXGLJ9dPu9i5dHI/view?usp=sharing)
+
+
 ## How it works
 
 1. Focus a code cell and press **`Ctrl+Alt+C`** — or click **🧠 Capture Context** in the cell toolbar.
 2. Pick one of six context types (type `1`–`6` or a name):
-
-   | | Type | Use it when… |
-   |---|---|---|
-   | 1 | 🧪 **Experiment** | you changed something and want to record whether it helped |
-   | 2 | ⚖️ **Decision** | you chose one path over others — record why before you forget |
-   | 3 | 🤔 **Assumption** | something you're treating as true without having verified it |
-   | 4 | 🗂️ **Data Context** | what this data actually *is*, before anyone trusts a number from it |
-   | 5 | 📈 **Result** | a number worth remembering, and what it does and doesn't mean |
-   | 6 | 📝 **General Note** | anything else worth telling future-you about this cell |
-
+   |   | Type                       | Use it when…                                                        |
+   | - | -------------------------- | -------------------------------------------------------------------- |
+   | 1 | 🧪**Experiment**     | you changed something and want to record whether it helped           |
+   | 2 | ⚖️**Decision**     | you chose one path over others — record why before you forget       |
+   | 3 | 🤔**Assumption**     | something you're treating as true without having verified it         |
+   | 4 | 🗂️**Data Context** | what this data actually*is*, before anyone trusts a number from it |
+   | 5 | 📈**Result**         | a number worth remembering, and what it does and doesn't mean        |
+   | 6 | 📝**General Note**   | anything else worth telling future-you about this cell               |
 3. A markdown cell with the template appears **above** the code cell, already in edit mode. Each field shows an italic hint; type over the ones you want.
 4. Press **`Ctrl+Alt+C`** again (or click 🧠 on that cell) to **save**: untouched hints are cleared to `—`, the timestamp is updated, and the cell renders.
 
@@ -29,14 +30,14 @@ Prefer being asked one question at a time? Set `notebookContext.captureMode` to 
 
 Each template is deliberately short. Fields are written as the question a teammate would ask reading the cell cold.
 
-| Type | Fields |
-|---|---|
-| 🧪 Experiment | Hypothesis · Change · Result · Decision |
-| ⚖️ Decision | Decision · Why · Evidence · Alternatives · Revisit if |
-| 🤔 Assumption | Assumption · Reason · Risk · Validation status (defaults to *Unvalidated*) |
-| 🗂️ Data Context | Dataset · Grain · Date range · Filters · Known limitations |
-| 📈 Result | Metric · Value · Interpretation · Caveats · Next step |
-| 📝 General Note | Note · Follow-up |
+| Type              | Fields                                                                         |
+| ----------------- | ------------------------------------------------------------------------------ |
+| 🧪 Experiment     | Hypothesis · Change · Result · Decision                                     |
+| ⚖️ Decision     | Decision · Why · Evidence · Alternatives · Revisit if                      |
+| 🤔 Assumption     | Assumption · Reason · Risk · Validation status (defaults to*Unvalidated*) |
+| 🗂️ Data Context | Dataset · Grain · Date range · Filters · Known limitations                 |
+| 📈 Result         | Metric · Value · Interpretation · Caveats · Next step                      |
+| 📝 General Note   | Note · Follow-up                                                              |
 
 *Revisit if* on Decision is the one addition beyond the classic four: most bad DS decisions were fine when made and just never got re-examined when the conditions changed.
 
@@ -85,27 +86,27 @@ If you save the notebook with `Cmd+S` after editing a context cell, `@updated_ti
 
 ## Commands & keys
 
-| Command | Where |
-|---|---|
-| 🧠 Capture Context / Save | `Ctrl+Alt+C`, cell toolbar, command palette |
-| Show Code Diff Since Capture | timeline item, cell status bar menu, palette |
-| Mark Linked Code as Current | timeline item (when drifted), cell status bar menu |
-| Reveal Linked Code Cell | timeline item |
-| Export Context Log… | timeline title bar, palette |
-| Group Timeline By… | timeline title bar |
+| Command                      | Where                                              |
+| ---------------------------- | -------------------------------------------------- |
+| 🧠 Capture Context / Save    | `Ctrl+Alt+C`, cell toolbar, command palette      |
+| Show Code Diff Since Capture | timeline item, cell status bar menu, palette       |
+| Mark Linked Code as Current  | timeline item (when drifted), cell status bar menu |
+| Reveal Linked Code Cell      | timeline item                                      |
+| Export Context Log…         | timeline title bar, palette                        |
+| Group Timeline By…          | timeline title bar                                 |
 
 `Ctrl+Alt+C` is unused by VS Code and by Jupyter's command-mode letter shortcuts. On keyboard layouts where `Ctrl+Alt` acts as AltGr, rebind `notebookContext.capture` in Keyboard Shortcuts.
 
 ## Settings
 
-| Setting | Default | |
-|---|---|---|
-| `notebookContext.captureMode` | `template` | `template` inserts an editable template cell; `guided` asks per field in input boxes |
-| `notebookContext.idStyle` | `sequential` | `CTX-001, CTX-002…` per notebook, or `random` (`CTX-7F3K2A`) for merge-safety |
-| `notebookContext.storeCodeSnapshot` | `true` | keep the linked cell's code in metadata for later diffing |
-| `notebookContext.autoUpdateTimestamp` | `true` | refresh `@updated_timestamp` on notebook save when the body changed |
-| `notebookContext.showFooter` | `true` | render the small `<sub>` footer line |
-| `notebookContext.timeline.groupBy` | `time` | `time` · `type` · `cell` |
+| Setting                                 | Default        |                                                                                          |
+| --------------------------------------- | -------------- | ---------------------------------------------------------------------------------------- |
+| `notebookContext.captureMode`         | `template`   | `template` inserts an editable template cell; `guided` asks per field in input boxes |
+| `notebookContext.idStyle`             | `sequential` | `CTX-001, CTX-002…` per notebook, or `random` (`CTX-7F3K2A`) for merge-safety     |
+| `notebookContext.storeCodeSnapshot`   | `true`       | keep the linked cell's code in metadata for later diffing                                |
+| `notebookContext.autoUpdateTimestamp` | `true`       | refresh`@updated_timestamp` on notebook save when the body changed                     |
+| `notebookContext.showFooter`          | `true`       | render the small`<sub>` footer line                                                    |
+| `notebookContext.timeline.groupBy`    | `time`       | `time` · `type` · `cell`                                                         |
 
 ## Development
 
